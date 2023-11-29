@@ -165,7 +165,15 @@ type ExArg struct {
 	Type ExArgType
 }
 
+type GnarkVersion int
+
+const (
+	Gnark8 GnarkVersion = iota
+	Gnark9
+)
+
 type ExCircuit struct {
+	Version GnarkVersion
 	Inputs  []ExArg
 	Gadgets []ExGadget
 	Code    []App

@@ -42,8 +42,8 @@ func GenerateLeanCircuit(name string, ext ExtractorApi, circuit ExtractorCircuit
 	return fmt.Sprintf("def %s %s: Prop :=\n%s", name, genArgs(extractorCircuit.Inputs), genCircuitBody(extractorCircuit))
 }
 
-func GenerateLeanCircuits(namespace string, ext ExtractorApi, circuits []string) string {
-	prelude := exportPrelude(namespace, ext.GetField().ScalarField())
+func GenerateLeanCircuits(namespace string, ext ExtractorApi, circuits []string, gateVersion GnarkVersion) string {
+	prelude := exportPrelude(namespace, ext.GetField().ScalarField(), genGateVersion(gateVersion))
 	gadgets := exportGadgets(ext.GetGadgets())
 	footer := exportFooter(namespace)
 	return fmt.Sprintf("%s\n\n%s\n\n%s\n\n%s", prelude, gadgets, strings.Join(circuits, "\n\n"), footer)
