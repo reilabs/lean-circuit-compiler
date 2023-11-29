@@ -21,8 +21,9 @@ func GenerateCircuitName(circuit ExtractorCircuit, fields []ExtractorField) stri
 	return generateUniqueName(circuit, args)
 }
 
-func GenerateLeanCode(namespace string, ext ExtractorApi, circuit ExtractorCircuit, fields []ExtractorField) (out string, err error) {
+func GenerateLeanCode(namespace string, ext ExtractorApi, circuit ExtractorCircuit, fields []ExtractorField, gateVersion GnarkVersion) (out string, err error) {
 	extractorCircuit := ExCircuit{
+		Version: gateVersion,
 		Inputs:  getExArgs(circuit, fields),
 		Gadgets: ext.GetGadgets(),
 		Code:    ext.GetCode(),
@@ -32,8 +33,9 @@ func GenerateLeanCode(namespace string, ext ExtractorApi, circuit ExtractorCircu
 	return out, nil
 }
 
-func GenerateLeanCircuit(name string, ext ExtractorApi, circuit ExtractorCircuit, fields []ExtractorField) string {
+func GenerateLeanCircuit(name string, ext ExtractorApi, circuit ExtractorCircuit, fields []ExtractorField, gateVersion GnarkVersion) string {
 	extractorCircuit := ExCircuit{
+		Version: gateVersion,
 		Inputs:  getExArgs(circuit, fields),
 		Gadgets: []ExGadget{},
 		Code:    ext.GetCode(),
